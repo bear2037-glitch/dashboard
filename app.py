@@ -16,10 +16,13 @@ st.set_page_config(page_title='홈앤쇼핑 모바일 매출일보', layout='wid
 @st.cache_data(ttl=60)
 def load_data():
     import requests
+    import os
 
-    url = "https://tlvbtnavwqegnduxcpys.supabase.co/rest/v1/sales_data"
+    url = os.getenv("SUPABASE_URL", "https://tlvbtnavwqegnduxcpys.supabase.co/rest/v1/sales_data")
+    api_key = os.getenv("SUPABASE_API_KEY")
+
     headers = {
-        "apikey": "sb_publishable_lugEwuauFAjk4CLu3mY-ag_XyrPvoIn",
+        "apikey": api_key,
         "Content-Type": "application/json"
     }
 
