@@ -13,7 +13,7 @@ plt.rcParams['axes.unicode_minus'] = False
 st.set_page_config(page_title='홈앤쇼핑 모바일 매출일보', layout='wide', initial_sidebar_state='expanded')
 
 # 데이터 로드 (Supabase)
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_data():
     import requests
 
