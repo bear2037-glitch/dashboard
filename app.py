@@ -12,12 +12,30 @@ plt.rcParams['axes.unicode_minus'] = False
 # 페이지 설정
 st.set_page_config(page_title='홈앤쇼핑 모바일 매출일보', layout='wide', initial_sidebar_state='expanded')
 
-# 데이터 로드
+# 데이터 로드 (Supabase)
 @st.cache_data
 def load_data():
-    df = pd.read_csv('sales_data.csv')
-    df['일자'] = pd.to_datetime(df['일자'])
-    return df
+    import requests
+
+    url = "https://tlvbtnavwqegnduxcpys.supabase.co/rest/v1/sales_data"
+    headers = {
+        "apikey": "sb_publishable_lugEwuauFAjk4CLu3mY-ag_XyrPvoIn",
+        "Content-Type": "application/json"
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            df = pd.DataFrame(data)
+            df['일자'] = pd.to_datetime(df['일자'])
+            return df
+        else:
+            st.error(f"Supabase 연결 실패: {response.status_code}")
+            return pd.DataFrame()
+    except Exception as e:
+        st.error(f"데이터 로드 실패: {str(e)}")
+        return pd.DataFrame()
 
 df = load_data()
 
