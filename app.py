@@ -10,7 +10,7 @@ plt.rcParams['font.family'] = 'Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] = False
 
 # 페이지 설정
-st.set_page_config(page_title='홈앤쇼핑 모바일 매출일보', layout='wide')
+st.set_page_config(page_title='홈앤쇼핑 모바일 매출일보', layout='wide', initial_sidebar_state='expanded')
 
 # 데이터 로드
 @st.cache_data
